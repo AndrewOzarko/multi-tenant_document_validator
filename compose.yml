@@ -1,0 +1,9 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    # Ця команда не дає контейнеру автоматично завершити роботу
+    command: tail -f /dev/null
