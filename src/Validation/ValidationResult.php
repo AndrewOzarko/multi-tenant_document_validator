@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace App\Validation;
 
+use InvalidArgumentException; // Додаємо виняток
+
 final class ValidationResult
 {
     /**
-     * @param bool $isValid
      * @param string[] $errors
      */
-    public function __construct(
+    private function __construct(
         public readonly bool $isValid,
-        public readonly array $errors = []
+        public readonly array $errors
     ) {}
 
     public static function success(): self
@@ -26,6 +27,10 @@ final class ValidationResult
     public static function failure(string|array $errors): self
     {
         $errorsArray = is_array($errors) ? $errors : [$errors];
+
+        if (empty($errorsArray)) {
+            throw new InvalidArgumentException('Failure result must contain at least one error.');
+        }
 
         return new self(isValid: false, errors: $errorsArray);
     }

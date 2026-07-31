@@ -13,11 +13,12 @@ use App\Validation\Rules\ProhibitedWordsRule;
 
 $ruleProvider = new InMemoryRuleProvider();
 
-$ruleProvider->setRulesForTenant('tenant_alpha', [
+$ruleProvider->setRulesForTenant(
+    'tenant_alpha',
     new MaxDocumentSizeRule(120),
     new RequiredMetadataRule(['author', 'category']),
-    new ProhibitedWordsRule(['confidential', 'restricted']),
-]);
+    new ProhibitedWordsRule(['confidential', 'restricted'])
+);
 
 $validator = new DocumentValidator($ruleProvider);
 

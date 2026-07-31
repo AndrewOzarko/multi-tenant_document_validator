@@ -12,17 +12,17 @@ final class InMemoryRuleProvider implements RuleProvider
     private array $tenantRules = [];
 
     /**
-     *
      * @param string $tenantId
-     * @param ValidationRule[] $rules
+     * @param ValidationRule ...$rules 
      */
-    public function setRulesForTenant(string $tenantId, array $rules): void
+    public function setRulesForTenant(string $tenantId, ValidationRule ...$rules): void
     {
         $this->tenantRules[$tenantId] = $rules;
     }
 
     /**
      * {@inheritdoc}
+     * @return ValidationRule[]
      */
     public function getRulesForTenant(string $tenantId): array
     {
